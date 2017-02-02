@@ -1,0 +1,47 @@
+<h4 class="card-header">Current employee ({{employees.length}})</h4>
+<div class="card-block">
+  <table class="table table-bordered table-striped">
+    <thead class="thead-default">
+      <tr>
+        <th>Nom</th>
+        <th>Prenom</th>
+        <th>Mail</th>
+        <th>Numero</th>
+        <th>Supprimer</th>
+        <th>Editer</th>
+      </tr>
+    </thead>
+    <tbody *ngIf="employees.length === 0">
+      <tr>
+        <td colspan="4">Aucun employé enregistré.</td>
+      </tr>
+    </tbody>
+      <tr *ngFor="let employee of employees">
+        <td><input type="text" [(ngModel)]='employee.nom'></td>
+        <td><input type="text" [(ngModel)]='employee.prenom'></td>
+        <td><input type="text" [(ngModel)]='employee.mail'></td>
+        <td><input type="text" [(ngModel)]='employee.numero'></td>
+        <td><input type="button" name="name" (click)='deleteEmployee(employee)' value="Supprimer"></td>
+        <td><input type="button" name="name" (click)='editEmployee(employee)' value="Editer"></td>
+      </tr>
+  </table>
+</div>
+
+<h4 class="card-header">Ajouter un nouvel employé</h4>
+<div class="card-block">
+  <form class="form-inline" [formGroup]="addEmployeeForm" (ngSubmit)="addEmployee()" style="text-align:center">
+    <div class="form-group">
+        <input class="form-control" type="text" name="nom" formControlName="nom" placeholder="Nom">
+    </div>
+    <div class="form-group">
+      <input class="form-control" type="text" name="prenom" formControlName="prenom" placeholder="prenom" min="0">
+    </div>
+    <div class="form-group">
+      <input class="form-control" type="text" name="mail" formControlName="mail" placeholder="mail" step="any" min="0">
+    </div>
+    <div class="form-group">
+      <input class="form-control" type="number" name="numero" formControlName="numero" placeholder="numero" step="any" min="0">
+    </div>
+    <button class="btn btn-primary" type="submit" [disabled]="!addEmployeeForm.valid"><i class="fa fa-floppy-o"></i> Ajouter</button>
+  </form>
+</div>
